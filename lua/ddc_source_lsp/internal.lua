@@ -67,7 +67,8 @@ end
 function M.request_sync(clientId, method, params, opts)
   local client = vim.lsp.get_client_by_id(clientId)
   if client then
-    return client.request_sync(method, normalize(params), opts.timeout, 0)
+    local resp = client.request_sync(method, normalize(params), opts.timeout, opts.bufnr)
+    return resp and resp.result or nil
   end
 end
 
